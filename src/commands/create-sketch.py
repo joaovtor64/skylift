@@ -21,9 +21,9 @@ from src.settings.app_cfg import INO_TEMPLATES
   default='esp32',
   help='Arduino template type')
 @click.option('-o', '--output', 'opt_output', required=True,
-  help='Output sketcch directory')
+  help='Output sketch directory')
 @click.option('--max-networks', 'opt_max_networks', 
-  type=click.IntRange(1,30),
+  type=click.IntRange(1,100),
   default=10)
 @click.option('--max-rssi', 'opt_max_rssi', default=-30)
 @click.option('--min-rssi', 'opt_min_rssi', default=-100)
@@ -66,7 +66,7 @@ def cli(ctx, opt_input, opt_board, opt_output, opt_max_networks,
   wifi_nets = networks.get_networks(min_rssi=opt_min_rssi, 
     max_rssi=opt_max_rssi, 
     max_networks=opt_max_networks)
-
+  print(networks)
   # read template files
   t = load_txt(fp_dst, as_list=False)
 
@@ -86,10 +86,7 @@ def cli(ctx, opt_input, opt_board, opt_output, opt_max_networks,
   # number networks
   templates['NN'] = f'#define NN {len(wifi_nets)}'
 
-  # number channels
-  templates['N_CHANNELS'] = f'#define N_CHANNELS {len(opt_channels)}'
-  channels_str = ", ".join(list(map(str, opt_channels)))
-  templates['CHANNELS'] = f'byte channels[N_CHANNELS] = {{{channels_str}}};'
+  
 
   # esp32|82666
   if opt_board == 'esp32':
@@ -97,24 +94,36 @@ def cli(ctx, opt_input, opt_board, opt_output, opt_max_networks,
   elif opt_board == 'esp8266':
     templates['ESP'] = "#define ESP8266 1"
 
-  # ssids, bssids, channels, dbm_levels
+  # ssids, bssids, channels, 
   ssids = ['char* ssids[NN] = {']
   bssids = ['byte bssids[NN][6] = {']
+  powers = ['int powers[NN] = {']
   ssid_lengths = ['uint8_t ssid_lengths[NN] = {']
+  use_channels=[]
   for wifi_net in wifi_nets:
     ssids.append(f'\t"{wifi_net.ssid}", ')
+    powers.append(f'\t{wifi_net.power}, ')
     ssid_lengths.append(f'\t{len(wifi_net.ssid)}, ')
     bssids.append(f'\t{wifi_net.bssid_as_hex_list_ino()}, ')
+    use_channels.append(wifi_net.channel)
   ssids.append('};')
   bssids.append('};')
   ssid_lengths.append('};')
+  powers.append('};')
   templates['SSIDS'] = '\n'.join(ssids)
   templates['SSID_LENGTHS'] = '\n'.join(ssid_lengths)
   templates['BSSIDS'] = '\n'.join(bssids)
+  templates['POWERS'] = '\n'.join(powers)
 
   import random
   opts_channels = [1, 6, 11]
-  use_channels = sorted([random.choice(opts_channels) for x in range(len(wifi_nets))])
+  #use_channels = sorted([random.choice(opts_channels) for x in range(len(wifi_nets))])
+  
+  templates['N_CHANNELS'] = f'#define N_CHANNELS {len(use_channels)}'
+  channels_str = ", ".join(list(map(str, use_channels)))
+  # number channels
+  
+  templates['CHANNELS'] = f'byte channels[N_CHANNELS] = {{{channels_str}}};'
   channels = ['byte channels[NN] = {']
   for c in use_channels:
     channels.append(f'\t{c},')

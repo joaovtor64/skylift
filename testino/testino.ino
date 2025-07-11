@@ -4,9 +4,8 @@
   Adam Harvey 2022
 */
 
-// {{TEMPLATE:HEADER
-// TEMPLATE:HEADER}}
-//#define DEBUG 1
+// Auto-generated from: wtf
+#define DEBUG 1
 #include "display.h"
 
 byte bssid[6] = {};        // store next bssid
@@ -25,9 +24,10 @@ char* hidden_ssid = "\x00";  // 0-length SSID (Network name unavailable)
 byte time_packet[NUM_TS_PLACES];  // placeholder for timestamp data#define NUM_TS_PLACES 8
 char cc[2];                       // placeholer for timestamp data
 
-// {{TEMPLATE:WIFI_POWER_DBM
-float WIFI_POWER_DBM = 10.5;  // ESP8266 only
-// TEMPLATE:WIFI_POWER_DBM}}
+
+
+
+float WIFI_POWER_DBM = 19.5;  // ESP8266 only
 
 
 
@@ -35,9 +35,7 @@ float WIFI_POWER_DBM = 10.5;  // ESP8266 only
 // ---------------------------------------------------------
 // START template data
 // ---------------------------------------------------------
-// {{TEMPLATE:ESP
-// #define ESP32 1
-// TEMPLATE:ESP}}
+#define ESP32 1
 
 #ifdef ESP32
 #include "WiFi.h"
@@ -53,75 +51,181 @@ extern "C" {
 }
 #endif
 
-// {{TEMPLATE:HIDDEN_SSIDS
-// #define USE_HIDDEN_SSID 1 // uncomment to use hidden SSIDs
-// TEMPLATE:HIDDEN_SSIDS}}
+// #define USE_HIDDEN_SSIDS
 
-// {{TEMPLATE:NN
-#define NN 6  // number of networks
-// TEMPLATE:NN}}
-// {{TEMPLATE:SSIDS
+#define NN 40
 char* ssids[NN] = {
-  "Network1",
-  "Network2",
-  "Network3",
-  "Network4",
-  "Network5",
-  "Network6",
+	"Rede de Peixe", 
+	"Ruth", 
+	"Joao Baltazar ", 
+	"Ana Beatriz 2G", 
+	"#NET-CLARO-WIFI", 
+	"#NET-CLARO-WIFI", 
+	"BAND2.4", 
+	"Rossana", 
+	"nao", 
+	"sanhudo", 
+	"#NET-CLARO-WIFI", 
+	"MOXA_2", 
+	"00:12:0E:97:CE:22", 
+	"TP-LINK", 
+	"linksys", 
+	"dlink", 
+	"Ana ", 
+	"Armagedon", 
+	"atanaka", 
+	"wi-fi home", 
+	"FAMILIA", 
+	"Gabi Viveiro Net", 
+	"Galaxy A03s6b9e", 
+	"silvana", 
+	"ricardo", 
+	"MOTOROLA-5F34A", 
+	"PacovÃ¡", 
+	"Trojan_2014", 
+	"BRUNO", 
+	"#NET-CLARO-WIFI", 
+	"baltazarjoao", 
+	"ENGENHARIA_CURY", 
+	"#NET-CLARO-WIFI", 
+	"INTELBRAS", 
+	"DOBI", 
+	"Paludetti", 
+	"SEM_BARULHO", 
+	"2G_PESSOTTI", 
+	"Thom_D017943", 
+	"Neguinho", 
 };
 
+uint8_t ssid_lengths[NN] = {
+	13, 
+	4, 
+	14, 
+	14, 
+	15, 
+	15, 
+	7, 
+	7, 
+	3, 
+	7, 
+	15, 
+	6, 
+	17, 
+	7, 
+	7, 
+	5, 
+	4, 
+	9, 
+	7, 
+	10, 
+	7, 
+	16, 
+	15, 
+	7, 
+	7, 
+	14, 
+	7, 
+	11, 
+	5, 
+	15, 
+	12, 
+	15, 
+	15, 
+	9, 
+	4, 
+	9, 
+	11, 
+	11, 
+	12, 
+	8, 
+};
 
-
-/**
- * These are the wifi powers 
- * 
- * typedef enum {
-  WIFI_POWER_21dBm = 84,      // 21dBm
-  WIFI_POWER_20_5dBm = 82,    // 20.5dBm
-  WIFI_POWER_20dBm = 80,      // 20dBm
-  WIFI_POWER_19_5dBm = 78,    // 19.5dBm
-  WIFI_POWER_19dBm = 76,      // 19dBm
-  WIFI_POWER_18_5dBm = 74,    // 18.5dBm
-  WIFI_POWER_17dBm = 68,      // 17dBm
-  WIFI_POWER_15dBm = 60,      // 15dBm
-  WIFI_POWER_13dBm = 52,      // 13dBm
-  WIFI_POWER_11dBm = 44,      // 11dBm
-  WIFI_POWER_8_5dBm = 34,     // 8.5dBm
-  WIFI_POWER_7dBm = 28,       // 7dBm
-  WIFI_POWER_5dBm = 20,       // 5dBm
-  WIFI_POWER_2dBm = 8,        // 2dBm
-  WIFI_POWER_MINUS_1dBm = -4  // -1dBm
-} wifi_power_t
- */
-// TEMPLATE:SSIDS}}
-
-// {{TEMPLATE:SSID_LENGTHS
-uint8_t ssid_lengths[NN] = { 8, 8, 8, 8, 8, 8 };
-// TEMPLATE:SSID_LENGTHS}}
-
-// {{TEMPLATE:BSSIDS
 byte bssids[NN][6] = {
-  { 0x00, 0x18, 0x0A, 0x80, 0x26, 0x01 },
-  { 0x00, 0x18, 0x0A, 0x80, 0x26, 0x02 },
-  { 0x00, 0x18, 0x0A, 0x80, 0x26, 0x03 },
-  { 0x00, 0x18, 0x0A, 0x80, 0x26, 0x04 },
-  { 0x00, 0x18, 0x0A, 0x80, 0x26, 0x05 },
-  { 0x00, 0x18, 0x0A, 0x80, 0x26, 0x06 },
+	{0x50, 0xC7, 0xBF, 0xE8, 0xC3, 0x38}, 
+	{0x10, 0xBE, 0xF5, 0xD2, 0xA7, 0x3C}, 
+	{0x5C, 0xE3, 0x0E, 0x14, 0xCD, 0xDC}, 
+	{0x5C, 0xE3, 0x0E, 0x12, 0x3E, 0x0E}, 
+	{0x5E, 0xE3, 0x0E, 0x22, 0x3E, 0x0E}, 
+	{0x5E, 0xE3, 0x0E, 0x25, 0x55, 0xE1}, 
+	{0x14, 0xCC, 0x20, 0x51, 0x01, 0x47}, 
+	{0x38, 0x6B, 0xBB, 0x46, 0x65, 0x1D}, 
+	{0x52, 0x92, 0xB9, 0xE3, 0x08, 0x82}, 
+	{0x28, 0x32, 0xC5, 0x1B, 0x6F, 0xB0}, 
+	{0x4E, 0xD0, 0x8A, 0x1F, 0x6C, 0xF9}, 
+	{0x46, 0x90, 0xE8, 0x4B, 0x79, 0x63}, 
+	{0x00, 0x12, 0x0E, 0x97, 0xCE, 0x22}, 
+	{0x00, 0x14, 0x78, 0x52, 0x27, 0x42}, 
+	{0x00, 0x16, 0xB6, 0xA6, 0xE5, 0x26}, 
+	{0x00, 0x19, 0x5B, 0xD6, 0x78, 0x82}, 
+	{0x00, 0x19, 0xE0, 0xA4, 0x9C, 0x2E}, 
+	{0x00, 0x25, 0x86, 0xDC, 0x71, 0x56}, 
+	{0x20, 0xAA, 0x4B, 0x42, 0x5F, 0x8B}, 
+	{0x1C, 0x7E, 0xE5, 0x41, 0x64, 0x86}, 
+	{0x40, 0x75, 0xC3, 0xB7, 0x6C, 0x20}, 
+	{0x00, 0x1D, 0xD4, 0xD7, 0x77, 0xD0}, 
+	{0x12, 0x57, 0x3A, 0x56, 0x75, 0x90}, 
+	{0x00, 0x24, 0x01, 0x17, 0x36, 0x67}, 
+	{0x28, 0xBE, 0x9B, 0x6F, 0xAD, 0xEF}, 
+	{0x40, 0xB7, 0xF3, 0xF9, 0xE9, 0x09}, 
+	{0x72, 0xC9, 0xE3, 0x49, 0xC8, 0xE4}, 
+	{0x10, 0xFE, 0xED, 0x31, 0x72, 0xD8}, 
+	{0x78, 0x91, 0xE9, 0x05, 0x70, 0xD1}, 
+	{0x5E, 0xE3, 0x0E, 0x28, 0x83, 0xE3}, 
+	{0x00, 0x1D, 0xD4, 0xDC, 0x2B, 0x60}, 
+	{0x54, 0xAF, 0x97, 0xE3, 0x25, 0x42}, 
+	{0x5E, 0xE3, 0x0E, 0x22, 0xF1, 0x61}, 
+	{0x44, 0x3B, 0x32, 0x70, 0x31, 0x6F}, 
+	{0x5C, 0x57, 0x1A, 0xDE, 0xAE, 0xB0}, 
+	{0x00, 0x24, 0xB2, 0xBA, 0x00, 0x30}, 
+	{0x00, 0x1A, 0x3F, 0x4B, 0xE3, 0xF2}, 
+	{0x18, 0x34, 0xAF, 0x27, 0x56, 0x68}, 
+	{0x28, 0xBE, 0x9B, 0x8E, 0x53, 0xE4}, 
+	{0x44, 0x89, 0x6D, 0x1C, 0x29, 0xBF}, 
 };
-// TEMPLATE:BSSIDS}}
-// {{TEMPLATE:POWERS
-wifi_power_t powers[]={
-  WIFI_POWER_21dBm,
-  WIFI_POWER_21dBm,
-  //idk
-}
-// TEMPLATE:POWERS}}
-// {{TEMPLATE:N_CHANNELS
-#define N_CHANNELS 3
-// TEMPLATE:N_CHANNELS}}
-// {{TEMPLATE:CHANNELS
-byte channels[N_CHANNELS] = { 1, 6, 11 };
-// TEMPLATE:CHANNELS}}
+int powers[NN] = {
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	-4, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+	8, 
+};
+#define N_CHANNELS 40
+byte channels[N_CHANNELS] = {8, 11, 6, 6, 6, 6, 1, 11, 11, 11, 11, 11, 9, 6, 6, 6, 11, 6, 1, 2, 1, 11, 6, 2, 6, 11, 3, 6, 1, 8, 6, 6, 6, 11, 11, 1, 11, 1, 6, 11};
 
 
 // ---------------------------------------------------------
@@ -247,11 +351,13 @@ void change_channel(uint8_t i) {
 // ---------------------------------------------------------------
 void setup() {
   #ifdef DEBUG
-    Serial.begin(9600);
+    Serial.begin(115200);
     pinMode(2,OUTPUT);
     digitalWrite(2,HIGH);
     delay(100);
     digitalWrite(2,LOW);
+    delay(10000);
+
   #endif
 
   //setup_display();

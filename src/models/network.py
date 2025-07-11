@@ -25,7 +25,8 @@ class Network(BaseModel):
   latitude: float=0.0
   longitude: float=0.0
   ssid: str=''
-
+  channel: int
+  power: int
   def bssid_as_hex_list_ino(self):
     hex_str = ', '.join([f'0x{x}' for x in self.bssid.split(':')])
     return '{' + hex_str + '}'
